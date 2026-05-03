@@ -22,6 +22,8 @@ public class OrderManager {
         notifyListeners();
     }
 
+    public void notifyListenCheckout() { listeners.forEach(Runnable::run); }
+
     public List<Orders> getOrderItems() { return orderItems; }
 
     public int getTotal() {

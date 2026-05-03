@@ -1,14 +1,21 @@
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 
 public class Main {
 
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> new Main().createUI());
     }
 
     public void createUI() {
+
+        FlatMacLightLaf.setup();
 
         JFrame frame = new JFrame("KiPeYe Coffee");
         frame.setSize(900, 620);
@@ -55,7 +62,7 @@ public class Main {
 
         // CATEGORIES with their own menu items
         Category[] categories = {
-                new Category("HOT COFFEE", "rsrc/pHolder.png", new Menu[]{
+                new Category("ICED COFFEE", "rsrc/pHolder.png", new Menu[]{
                         new Menu("IC1", "₱120", "rsrc/pHolder.png"),
                         new Menu("IC2",  "₱135", "rsrc/pHolder.png"),
                         new Menu("IC3",  "₱180", "rsrc/pHolder.png"),

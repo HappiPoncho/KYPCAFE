@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderPanel extends JPanel {
     private OrderManager orderManager;
@@ -30,11 +32,44 @@ public class OrderPanel extends JPanel {
         scroll.setBackground(CREAM);
         add(scroll, BorderLayout.CENTER);
 
-        // Total
+        JPanel bottomPanel = new JPanel(new BorderLayout(0, 8));
+        bottomPanel.setBackground(CREAM);
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
+
         totalLabel = new JLabel("Total: ₱0");
         totalLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        totalLabel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
-        add(totalLabel, BorderLayout.SOUTH);
+
+        JButton checkoutBtn = new JButton("Checkout");
+        checkoutBtn.setFont(new Font("Arial", Font.BOLD, 13));
+        checkoutBtn.setBackground(new Color(90, 60, 30));
+        checkoutBtn.setForeground(Color.WHITE);
+        checkoutBtn.setFocusPainted(false);
+        checkoutBtn.setBorderPainted(false);
+        checkoutBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        checkoutBtn.setPreferredSize(new Dimension(0, 38));
+        checkoutBtn.addActionListener(e -> {
+            if (orderManager.getOrderItems().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No items in order!", "Checkout", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Total: ₱" + orderManager.getTotal() + "\nProceed to checkout?",
+                    "Checkout", JOptionPane.YES_NO_OPTION);
+            // replace the YES_OPTION block with this
+            if (confirm == JOptionPane.YES_OPTION) {
+                List<Orders> snapshot = new ArrayList<>(orderManager.getOrderItems());
+                int currentTotal = orderManager.getTotal();
+
+                orderManager.getOrderItems().clear();
+                orderManager.notifyListenCheckout();
+
+                new Receipt((JFrame) SwingUtilities.getWindowAncestor(this), snapshot, currentTotal);
+            }
+        });
+
+        bottomPanel.add(totalLabel, BorderLayout.NORTH);
+        bottomPanel.add(checkoutBtn, BorderLayout.SOUTH);
+        add(bottomPanel, BorderLayout.SOUTH);
 
         // Listen for order changes
         orderManager.addChangeListener(this::refresh);
