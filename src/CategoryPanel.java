@@ -7,7 +7,7 @@ public class CategoryPanel extends JPanel {
 
     public CategoryPanel(Category[] categories, Consumer<Category> onCategorySelected) {
         setLayout(new GridLayout(1, categories.length, 8, 0));
-        setBackground(new Color(201, 181, 156));
+        setBackground(new Color(239, 233, 227));
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         buttons = new CategoryBtn[categories.length];
