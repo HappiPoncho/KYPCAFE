@@ -16,11 +16,14 @@ public class Receipt extends JDialog {
     private final List<Orders> items;
     private final int total;
     private final String dateTime;
+    private final String orderType;
 
-    public Receipt(JFrame parent, List<Orders> items, int total) {
+    public Receipt(JFrame parent, List<Orders> items, int total, String orderType) {
+
         super(parent, "Receipt", true);
         this.items = items;
         this.total = total;
+        this.orderType = orderType;
         this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy  hh:mm a"));
 
         setSize(380, 520);
@@ -54,6 +57,14 @@ public class Receipt extends JDialog {
         date.setFont(new Font("Arial", Font.PLAIN, 11));
         date.setForeground(Color.GRAY);
         date.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel typeLabel = new JLabel(orderType.toUpperCase());
+        typeLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        typeLabel.setForeground(new Color(90, 60, 30));
+        typeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        panel.add(Box.createVerticalStrut(4));
+        panel.add(typeLabel);
 
         panel.add(shop);
         panel.add(Box.createVerticalStrut(4));
@@ -202,6 +213,11 @@ public class Receipt extends JDialog {
             dt.setAlignment(Element.ALIGN_CENTER);
             dt.setSpacingAfter(10);
             doc.add(dt);
+
+            Paragraph type = new Paragraph(orderType.toUpperCase(), headerFont);
+            type.setAlignment(Element.ALIGN_CENTER);
+            type.setSpacingAfter(6);
+            doc.add(type);
 
             // Table
             PdfPTable table = new PdfPTable(3);

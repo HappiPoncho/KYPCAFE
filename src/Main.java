@@ -1,36 +1,34 @@
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 
 public class Main {
 
     public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(() -> new Main().createUI());
+        SwingUtilities.invokeLater(() -> new WelcomePanel());
     }
 
-    public void createUI() {
+    public void createUI(String orderType)  {
 
         FlatMacLightLaf.setup();
 
-        JFrame frame = new JFrame("KiPeYe Coffee");
+        JFrame frame = new JFrame("KPY COFFEE KIOSK");
         frame.setSize(900, 620);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getRootPane().setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         frame.setLayout(new BorderLayout(15, 15));
+        frame.setResizable(false);
 
-        Color bg = new Color(250, 245, 230);
-        Color cream = new Color(255, 253, 208);
+        Color bg = new Color(249, 248, 246);
+        Color cream = new Color(239, 233, 227);
         frame.getContentPane().setBackground(bg);
 
         // PANELS
         JPanel menuPanel = new JPanel(new BorderLayout(0, 8));
         OrderManager orderManager = new OrderManager();
-        OrderPanel orderPanel = new OrderPanel(orderManager);
+        OrderPanel orderPanel = new OrderPanel(orderManager, orderType);
 
         menuPanel.setPreferredSize(new Dimension(580, 0));
         orderPanel.setPreferredSize(new Dimension(280, 0));

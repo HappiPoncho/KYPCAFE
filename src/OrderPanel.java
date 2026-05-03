@@ -7,11 +7,13 @@ public class OrderPanel extends JPanel {
     private OrderManager orderManager;
     private JPanel itemsPanel;
     private JLabel totalLabel;
+    private String orderType;
 
     private static final Color CREAM = new Color(255, 253, 208);
 
-    public OrderPanel(OrderManager orderManager) {
+    public OrderPanel(OrderManager orderManager,String orderType) {
         this.orderManager = orderManager;
+        this.orderType = orderType;
         setLayout(new BorderLayout(0, 10));
         setBackground(CREAM);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -63,7 +65,7 @@ public class OrderPanel extends JPanel {
                 orderManager.getOrderItems().clear();
                 orderManager.notifyListenCheckout();
 
-                new Receipt((JFrame) SwingUtilities.getWindowAncestor(this), snapshot, currentTotal);
+                new Receipt((JFrame) SwingUtilities.getWindowAncestor(this), snapshot, currentTotal, orderType);
             }
         });
 

@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CategoryBtn extends JPanel {
     private static final Color DEFAULT_BG = Color.WHITE;
-    private static final Color SELECTED_BG = new Color(200, 180, 140);
+    private static final Color SELECTED_BG = new Color(217, 207, 199);
     private static final Color HOVER_BG = new Color(230, 220, 200);
 
     private boolean selected = false;
