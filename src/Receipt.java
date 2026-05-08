@@ -2,7 +2,6 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
 import javax.swing.*;
-//import java.awt.;
 import java.awt.*;
 import java.awt.Font;
 import java.io.*;
@@ -17,10 +16,11 @@ public class Receipt extends JDialog {
     private final int total;
     private final String dateTime;
     private final String orderType;
+    private final JFrame parent;
 
     public Receipt(JFrame parent, List<Orders> items, int total, String orderType) {
-
         super(parent, "Receipt", true);
+        this.parent = parent;
         this.items = items;
         this.total = total;
         this.orderType = orderType;
@@ -43,7 +43,6 @@ public class Receipt extends JDialog {
         panel.setBackground(Color.WHITE);
         panel.setBorder(new EmptyBorder(20, 24, 12, 24));
 
-        // SHOP NAME
         JLabel shop = new JLabel("KiPeYe Coffee");
         shop.setFont(new Font("Arial", Font.BOLD, 20));
         shop.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -63,23 +62,20 @@ public class Receipt extends JDialog {
         typeLabel.setForeground(new Color(90, 60, 30));
         typeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(typeLabel);
-
         panel.add(shop);
         panel.add(Box.createVerticalStrut(4));
         panel.add(subtitle);
         panel.add(Box.createVerticalStrut(2));
         panel.add(date);
+        panel.add(Box.createVerticalStrut(4));
+        panel.add(typeLabel);
         panel.add(Box.createVerticalStrut(12));
         panel.add(makeDivider());
         panel.add(Box.createVerticalStrut(10));
 
-        // HEADER ROW
         panel.add(makeRow("Item", "Qty", "Price", true));
         panel.add(Box.createVerticalStrut(6));
 
-        // ITEMS
         for (Orders item : items) {
             panel.add(makeRow(
                     item.getMenu().getName(),
@@ -94,7 +90,6 @@ public class Receipt extends JDialog {
         panel.add(makeDivider());
         panel.add(Box.createVerticalStrut(10));
 
-        // TOTAL
         JPanel totalRow = new JPanel(new BorderLayout());
         totalRow.setBackground(Color.WHITE);
         totalRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
@@ -138,15 +133,13 @@ public class Receipt extends JDialog {
         qtyLabel.setPreferredSize(new Dimension(40, 20));
         priceLabel.setPreferredSize(new Dimension(70, 20));
 
-        row.add(nameLabel,  BorderLayout.CENTER);
-        row.add(qtyLabel,   BorderLayout.EAST);
-
         JPanel right = new JPanel(new BorderLayout());
         right.setBackground(Color.WHITE);
         right.add(qtyLabel, BorderLayout.WEST);
         right.add(priceLabel, BorderLayout.EAST);
         right.setPreferredSize(new Dimension(110, 20));
 
+        row.add(nameLabel, BorderLayout.CENTER);
         row.add(right, BorderLayout.EAST);
         return row;
     }
@@ -165,7 +158,11 @@ public class Receipt extends JDialog {
 
         JButton closeBtn = new JButton("Close");
         closeBtn.setFocusPainted(false);
-        closeBtn.addActionListener(e -> dispose());
+        closeBtn.addActionListener(e -> {
+            dispose();
+            parent.dispose();
+            SwingUtilities.invokeLater(() -> new WelcomePanel());
+        });
 
         JButton downloadBtn = new JButton("Download PDF");
         downloadBtn.setBackground(new Color(90, 60, 30));
@@ -200,7 +197,6 @@ public class Receipt extends JDialog {
             com.itextpdf.text.Font bodyFont   = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 10);
             com.itextpdf.text.Font totalFont  = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD);
 
-            // Header
             Paragraph shopName = new Paragraph("KiPeYe Coffee", titleFont);
             shopName.setAlignment(Element.ALIGN_CENTER);
             doc.add(shopName);
@@ -211,22 +207,20 @@ public class Receipt extends JDialog {
 
             Paragraph dt = new Paragraph(dateTime, subFont);
             dt.setAlignment(Element.ALIGN_CENTER);
-            dt.setSpacingAfter(10);
+            dt.setSpacingAfter(6);
             doc.add(dt);
 
             Paragraph type = new Paragraph(orderType.toUpperCase(), headerFont);
             type.setAlignment(Element.ALIGN_CENTER);
-            type.setSpacingAfter(6);
+            type.setSpacingAfter(10);
             doc.add(type);
 
-            // Table
             PdfPTable table = new PdfPTable(3);
             table.setWidthPercentage(100);
             table.setWidths(new float[]{5, 1.5f, 2});
             table.setSpacingBefore(6);
             table.setSpacingAfter(6);
 
-            // Table header
             for (String h : new String[]{"Item", "Qty", "Price"}) {
                 PdfPCell cell = new PdfPCell(new Phrase(h, headerFont));
                 cell.setBorder(Rectangle.BOTTOM);
@@ -234,7 +228,6 @@ public class Receipt extends JDialog {
                 table.addCell(cell);
             }
 
-            // Table rows
             for (Orders item : items) {
                 PdfPCell c1 = new PdfPCell(new Phrase(item.getMenu().getName(), bodyFont));
                 PdfPCell c2 = new PdfPCell(new Phrase("x" + item.getQuantity(), bodyFont));
@@ -252,7 +245,6 @@ public class Receipt extends JDialog {
 
             doc.add(table);
 
-            // Total
             Paragraph divider = new Paragraph("________________________________________________", subFont);
             divider.setAlignment(Element.ALIGN_CENTER);
             doc.add(divider);
