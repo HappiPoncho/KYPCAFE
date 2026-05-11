@@ -1,36 +1,61 @@
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class WelcomePanel extends JFrame {
 
     public WelcomePanel() {
-        FlatMacLightLaf.setup();
-
         setTitle("KiPeYe Coffee");
         setSize(500, 380);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        setLayout(new BorderLayout());
 
-        Color bg = new Color(250, 245, 230);
+        JPanel bg = new JPanel(new BorderLayout()) {
+            BufferedImage logo;
+            {
+                try {
+                    logo = ImageIO.read(new File("rsrc/logoFIN.png"));
+                } catch (IOException e) {
+                    logo = null;
+                }
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (logo != null) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f)); // opacity
+                    int size = Math.min(getWidth(), getHeight());
+                    int x = (getWidth() - size) / 2;
+                    int y = (getHeight() - size) / 2;
+                    g2d.drawImage(logo, x, y, size, size, this);
+                    g2d.dispose();
+                }
+            }
+        };
+        bg.setBackground(new Color(250, 245, 230));
+        setContentPane(bg);
+
         Color brown = new Color(90, 60, 30);
         Color cream = new Color(255, 253, 208);
-        getContentPane().setBackground(bg);
 
-        // CENTER — shop name + subtitle
+        // CENTER
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(bg);
+        centerPanel.setOpaque(false);
         centerPanel.setBorder(BorderFactory.createEmptyBorder(60, 40, 20, 40));
 
         JLabel shopName = new JLabel("KiPeYe Coffee");
-        shopName.setFont(new Font("Arial", Font.BOLD, 36));
+        shopName.setFont(Fonts.of(Font.BOLD, 50f));
         shopName.setForeground(brown);
         shopName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel tagline = new JLabel("Veni, Vidi, Vici.");
+        JLabel tagline = new JLabel("Good coffee, great vibes.");
         tagline.setFont(new Font("Arial", Font.ITALIC, 14));
         tagline.setForeground(Color.GRAY);
         tagline.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -46,23 +71,23 @@ public class WelcomePanel extends JFrame {
         centerPanel.add(Box.createVerticalStrut(30));
         centerPanel.add(prompt);
 
-        add(centerPanel, BorderLayout.CENTER);
+        bg.add(centerPanel, BorderLayout.CENTER);
 
-        // BOTTOM — buttons
+        // BUTTONS
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 16, 0));
-        btnPanel.setBackground(bg);
+        btnPanel.setOpaque(false);
         btnPanel.setBorder(BorderFactory.createEmptyBorder(10, 60, 50, 60));
 
-        JButton dineInBtn = makeButton("Dine In", brown, Color.WHITE);
+        JButton dineInBtn  = makeButton("Dine In",  brown, Color.WHITE);
         JButton takeOutBtn = makeButton("Take Out", cream, brown);
 
-        dineInBtn.addActionListener(e -> proceed("Dine In"));
+        dineInBtn.addActionListener(e  -> proceed("Dine In"));
         takeOutBtn.addActionListener(e -> proceed("Take Out"));
 
         btnPanel.add(dineInBtn);
         btnPanel.add(takeOutBtn);
 
-        add(btnPanel, BorderLayout.SOUTH);
+        bg.add(btnPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }

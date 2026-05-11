@@ -31,13 +31,13 @@ public class Receipt extends JDialog {
         setResizable(false);
         setLayout(new BorderLayout());
 
-        add(buildReceiptPanel(), BorderLayout.CENTER);
+        add(ReceiptPanel(), BorderLayout.CENTER);
         add(buildButtonPanel(), BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    private JPanel buildReceiptPanel() {
+    private JPanel ReceiptPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.WHITE);

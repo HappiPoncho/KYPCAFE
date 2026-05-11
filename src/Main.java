@@ -49,7 +49,7 @@ public class Main {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // no bottom scroll
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-// Force container width to match the scroll pane's viewport
+
         scrollPane.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent e) {
                 int width = scrollPane.getViewport().getWidth();
@@ -61,41 +61,66 @@ public class Main {
         // CATEGORIES with their own menu items
         Category[] categories = {
                 new Category("ICED COFFEE", "rsrc/pHolder.png", new Menu[]{
-                        new Menu("IC1", "₱120", "rsrc/pHolder.png"),
-                        new Menu("IC2",  "₱135", "rsrc/pHolder.png"),
-                        new Menu("IC3",  "₱180", "rsrc/pHolder.png"),
-                        new Menu("IC4",   "₱140", "rsrc/pHolder.png")
+                        new Menu("Iced Americano", "₱120", "rsrc/pHolder.png"),
+                        new Menu("Iced Oat Milk Latte",  "₱165", "rsrc/pHolder.png"),
+                        new Menu("Iced Caffe Latte",  "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced Mocha Latte",   "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced Hazelnut Latte",   "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced Butterscotch Latte",   "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced White Mocha Latte",   "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced Spanish Latte",   "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced Caramel Macchiato",   "₱140", "rsrc/pHolder.png"),
+                        new Menu("Iced Salted Caramel",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Iced Biscoff Latte",      "₱120", "rsrc/pHolder.png")
                 }),
-                new Category("HOT COFFEE", "rsrc/pHolder.png", new Menu[]{
-                        new Menu("HC1",   "₱90",  "rsrc/pHolder.png"),
-                        new Menu("HC2", "₱150", "rsrc/pHolder.png"),
-                        new Menu("HC3",   "₱200", "rsrc/pHolder.png")
+                new Category("HOT SELECTION", "rsrc/pHolder.png", new Menu[]{
+                        new Menu("Americano","₱90","rsrc/pHolder.png"),
+                        new Menu("Flat White", "₱150", "rsrc/pHolder.png"),
+                        new Menu("Pistachio Cortado","₱200", "rsrc/pHolder.png"),
+                        new Menu("Affogato", "₱200","rsrc/pHolder.png"),
+                        new Menu("Caffe Latte", "₱200","rsrc/pHolder.png"),
+                        new Menu("Cappucino", "₱200","rsrc/pHolder.png"),
+                        new Menu("Caramel Macchiato", "₱200","rsrc/pHolder.png"),
+                        new Menu("Signature Hot Choco",      "₱120", "rsrc/pHolder.png")
                 }),
-                new Category("FRAPEE", "rsrc/pHolder.png", new Menu[]{
-                        new Menu("FR1",   "₱80",  "rsrc/pHolder.png"),
-                        new Menu("FR2", "₱110", "rsrc/pHolder.png"),
-                        new Menu("FR3",      "₱120", "rsrc/pHolder.png")
+                new Category("FRAPPE", "rsrc/pHolder.png", new Menu[]{
+                        new Menu("Oreo Frappe",   "₱80",  "rsrc/pHolder.png"),
+                        new Menu("Choco Frappe", "₱110", "rsrc/pHolder.png"),
+                        new Menu("Matcha Frappe",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Java Chip Frappe",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Cheesecake Frappe",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Biscoff Frappe",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Strawberry Frappe",      "₱120", "rsrc/pHolder.png")
                 }),
-                new Category("OVER ICED", "rsrc/pHolder.png", new Menu[]{
-                        new Menu("OI1",    "₱60", "rsrc/pHolder.png"),
-                        new Menu("OI2",    "₱70", "rsrc/pHolder.png"),
-                        new Menu("OI3", "₱90", "rsrc/pHolder.png")
+                new Category("REFRESHERS", "rsrc/pHolder.png", new Menu[]{
+                        new Menu("Iced Matcha",    "₱60", "rsrc/pHolder.png"),
+                        new Menu("Strawberry Milk",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Mango Ade",    "₱70", "rsrc/pHolder.png"),
+                        new Menu("Strawberry Ade",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("PassionFruit Ade", "₱90", "rsrc/pHolder.png"),
+                        new Menu("GreenAple Ade",    "₱70", "rsrc/pHolder.png"),
+                        new Menu("Strawberry Ade",    "₱70", "rsrc/pHolder.png"),
+                        new Menu("Lemonade",      "₱120", "rsrc/pHolder.png")
                 }),
-                new Category("SNACKS", "rsrc/pHolder.png", new Menu[]{
-                        new Menu("SN1", "₱65", "rsrc/pHolder.png"),
-                        new Menu("SN2",      "₱85", "rsrc/pHolder.png"),
-                        new Menu("SN3",      "₱75", "rsrc/pHolder.png")
+                new Category("SIDES", "rsrc/pHolder.png", new Menu[]{
+                        new Menu("Hamburger", "₱65", "rsrc/pHolder.png"),
+                        new Menu("Ham 'n Egg Sandwich",      "₱85", "rsrc/pHolder.png"),
+                        new Menu("BLT Sandwich",      "₱75", "rsrc/pHolder.png"),
+                        new Menu("Tuna Pesto",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Chicken Alfredo",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Italian Spaghetti",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Fries Overload",      "₱120", "rsrc/pHolder.png"),
+                        new Menu("Nachos Overload",      "₱120", "rsrc/pHolder.png")
                 }),
                 new Category("PASTRY", "rsrc/pHolder.png", new Menu[]{
-                        new Menu("PY1",  "₱70",  "rsrc/pHolder.png"),
+                        new Menu("Croissants",  "₱70",  "rsrc/pHolder.png"),
                         new Menu("PY2",    "₱95",  "rsrc/pHolder.png"),
                         new Menu("PY3", "₱130", "rsrc/pHolder.png")
                 })
         };
 
-        // Helper to load cards from a category
         Runnable[] loadCategory = { null };
-        loadCategory[0] = () -> {}; // placeholder
+        loadCategory[0] = () -> {};
 
         CategoryPanel categoryPanel = new CategoryPanel(categories, selected -> {
             container.removeAll();
