@@ -29,7 +29,7 @@ public class MenuCard extends JPanel {
 
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                orderManager.addItem(item);  // <-- replaces JOptionPane
+                orderManager.addItem(item);
             }
             public void mouseEntered(MouseEvent e) { setBackground(new Color(230, 230, 230)); }
             public void mouseExited(MouseEvent e) { setBackground(Color.WHITE); }
