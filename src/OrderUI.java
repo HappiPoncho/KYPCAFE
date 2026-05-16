@@ -20,7 +20,6 @@ public class OrderUI extends JPanel {
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
         add(title, BorderLayout.NORTH);
 
-        // Items list
         itemsPanel = new JPanel();
         itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
         itemsPanel.setBackground(CREAM);
@@ -30,13 +29,12 @@ public class OrderUI extends JPanel {
         scroll.setBackground(CREAM);
         add(scroll, BorderLayout.CENTER);
 
-        // Total
+
         totalLabel = new JLabel("Total: ₱0");
         totalLabel.setFont(new Font("Arial", Font.BOLD, 14));
         totalLabel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
         add(totalLabel, BorderLayout.SOUTH);
 
-        // Listen for order changes
         orderManager.addChangeListener(this::refresh);
     }
 

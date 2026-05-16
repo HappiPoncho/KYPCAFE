@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class MenuCard extends JPanel {
 
-    public MenuCard(Menu item, OrderManager orderManager) {  // <-- add OrderManager param
+    public MenuCard(Menu item, OrderManager orderManager) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(200, 200));
         setBackground(Color.WHITE);

@@ -18,8 +18,8 @@ public class OrderRows extends JPanel {
         priceLabel.setFont(new Font("Arial", Font.BOLD, 12));
         priceLabel.setForeground(new Color(80, 80, 80));
 
-        JButton removeBtn = new JButton("✕");
-        removeBtn.setFont(new Font("Arial", Font.PLAIN, 10));
+        JButton removeBtn = new JButton("X");
+        removeBtn.setFont(new Font("Arial", Font.BOLD, 10));
         removeBtn.setForeground(Color.RED);
         removeBtn.setBorderPainted(false);
         removeBtn.setContentAreaFilled(false);

@@ -10,7 +10,7 @@ public class Fonts {
     static {
         Font loaded;
         try {
-            loaded = Font.createFont(Font.TRUETYPE_FONT, new File("rsrc/FeelFree.ttf"));
+            loaded = Font.createFont(Font.TRUETYPE_FONT, new File("rsrc/icons and fonts/FeelFree.ttf"));
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(loaded);
         } catch (Exception e) {
             loaded = new Font("Arial", Font.PLAIN, 12);

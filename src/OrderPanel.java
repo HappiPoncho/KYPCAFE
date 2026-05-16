@@ -73,7 +73,6 @@ public class OrderPanel extends JPanel {
         bottomPanel.add(checkoutBtn, BorderLayout.SOUTH);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        // Listen for order changes
         orderManager.addChangeListener(this::refresh);
     }
 

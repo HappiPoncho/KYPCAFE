@@ -4,10 +4,14 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 public class WelcomePanel extends JFrame {
 
     public WelcomePanel() {
+
+        FlatMacLightLaf.setup();
+
         setTitle("KiPeYe Coffee");
         setSize(500, 380);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,7 +19,9 @@ public class WelcomePanel extends JFrame {
         setResizable(false);
 
         JPanel bg = new JPanel(new BorderLayout()) {
+
             BufferedImage logo;
+
             {
                 try {
                     logo = ImageIO.read(new File("rsrc/logoFIN.png"));
@@ -27,31 +33,34 @@ public class WelcomePanel extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+
                 if (logo != null) {
                     Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f)); // opacity
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.15f));
+
                     int size = Math.min(getWidth(), getHeight());
                     int x = (getWidth() - size) / 2;
                     int y = (getHeight() - size) / 2;
+
                     g2d.drawImage(logo, x, y, size, size, this);
                     g2d.dispose();
                 }
             }
         };
+
         bg.setBackground(new Color(250, 245, 230));
         setContentPane(bg);
 
         Color brown = new Color(90, 60, 30);
         Color cream = new Color(255, 253, 208);
 
-        // CENTER
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setOpaque(false);
         centerPanel.setBorder(BorderFactory.createEmptyBorder(60, 40, 20, 40));
 
         JLabel shopName = new JLabel("KiPeYe Coffee");
-        shopName.setFont(Fonts.of(Font.BOLD, 50f));
+        shopName.setFont(Fonts.of(Font.BOLD, 80f));
         shopName.setForeground(brown);
         shopName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -73,7 +82,6 @@ public class WelcomePanel extends JFrame {
 
         bg.add(centerPanel, BorderLayout.CENTER);
 
-        // BUTTONS
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 16, 0));
         btnPanel.setOpaque(false);
         btnPanel.setBorder(BorderFactory.createEmptyBorder(10, 60, 50, 60));
@@ -89,6 +97,33 @@ public class WelcomePanel extends JFrame {
 
         bg.add(btnPanel, BorderLayout.SOUTH);
 
+        JPanel upPanel = new JPanel(new BorderLayout());
+        upPanel.setOpaque(false);
+        upPanel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        JButton exitBtn = makeButton("X", Color.red, Color.WHITE);
+        exitBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to exit?",
+                    "Exit",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (confirm == JOptionPane.YES_OPTION) System.exit(0);
+        });
+
+        upPanel.add(exitBtn, BorderLayout.EAST);
+
+        /*
+        JButton adminBtn = makeIconButton("rsrc/icons and fonts/settings.png");
+        adminBtn.addActionListener(e -> {
+            System.out.println("sd");
+        });
+
+        upPanel.add(adminBtn, BorderLayout.WEST);*/
+
+        bg.add(upPanel, BorderLayout.NORTH);
+
         setVisible(true);
     }
 
@@ -100,9 +135,32 @@ public class WelcomePanel extends JFrame {
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn.setPreferredSize(new Dimension(0, 44));
         return btn;
     }
+
+    /*private JButton makeIconButton(String path) {
+        JButton btn = new JButton();
+
+        try {
+            BufferedImage img = ImageIO.read(new File(path));
+            if (img != null) {
+                Image scaled = img.getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+                btn.setIcon(new ImageIcon(scaled));
+            } else {
+                btn.setText("?");
+            }
+        } catch (IOException e) {
+            btn.setText("?");
+        }
+
+        btn.setPreferredSize(new Dimension(45, 35));
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        return btn;
+    }*/
 
     private void proceed(String orderType) {
         dispose();

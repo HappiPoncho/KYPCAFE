@@ -21,7 +21,6 @@ public class CategoryPanel extends JPanel {
             add(buttons[i]);
         }
 
-        // Select first by default
         if (categories.length > 0) {
             buttons[0].setSelected(true);
         }
