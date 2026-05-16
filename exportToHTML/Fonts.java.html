@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Fonts.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #f92672;}
+.s1 { color: #f8605f;}
+.s2 { color: #ff0006;}
+.s3 { color: #e6db74;}
+.s4 { color: #ae81ff;}
+.ln { color: #642c3c; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#060a13">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Fonts.java</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">import </span><span class="s1">java.awt.</span><span class="s0">*</span><span class="s1">;</span>
+<a name="l2"><span class="ln">2    </span></a><span class="s0">import </span><span class="s1">java.io.File;</span>
+<a name="l3"><span class="ln">3    </span></a>
+<a name="l4"><span class="ln">4    </span></a><span class="s0">public class </span><span class="s1">Fonts {</span>
+<a name="l5"><span class="ln">5    </span></a>
+<a name="l6"><span class="ln">6    </span></a>    <span class="s0">public static final </span><span class="s1">Font REGULAR;</span>
+<a name="l7"><span class="ln">7    </span></a>    <span class="s0">public static final </span><span class="s1">Font BOLD;</span>
+<a name="l8"><span class="ln">8    </span></a>    <span class="s0">public static final </span><span class="s1">Font ITALIC;</span>
+<a name="l9"><span class="ln">9    </span></a>
+<a name="l10"><span class="ln">10   </span></a>    <span class="s0">static </span><span class="s1">{</span>
+<a name="l11"><span class="ln">11   </span></a>        <span class="s1">Font loaded;</span>
+<a name="l12"><span class="ln">12   </span></a>        <span class="s0">try </span><span class="s1">{</span>
+<a name="l13"><span class="ln">13   </span></a>            <span class="s1">loaded </span><span class="s0">= </span><span class="s1">Font.createFont(Font.TRUETYPE_FONT</span><span class="s2">, </span><span class="s0">new </span><span class="s1">File(</span><span class="s3">&quot;rsrc/icons and fonts/FeelFree.ttf&quot;</span><span class="s1">));</span>
+<a name="l14"><span class="ln">14   </span></a>            <span class="s1">GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(loaded);</span>
+<a name="l15"><span class="ln">15   </span></a>        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+<a name="l16"><span class="ln">16   </span></a>            <span class="s1">loaded </span><span class="s0">= new </span><span class="s1">Font(</span><span class="s3">&quot;Arial&quot;</span><span class="s2">, </span><span class="s1">Font.PLAIN</span><span class="s2">, </span><span class="s4">12</span><span class="s1">);</span>
+<a name="l17"><span class="ln">17   </span></a>        <span class="s1">}</span>
+<a name="l18"><span class="ln">18   </span></a>
+<a name="l19"><span class="ln">19   </span></a>        <span class="s1">REGULAR </span><span class="s0">= </span><span class="s1">loaded.deriveFont(Font.PLAIN</span><span class="s2">, </span><span class="s4">12f</span><span class="s1">);</span>
+<a name="l20"><span class="ln">20   </span></a>        <span class="s1">BOLD    </span><span class="s0">= </span><span class="s1">loaded.deriveFont(Font.BOLD</span><span class="s2">, </span><span class="s4">12f</span><span class="s1">);</span>
+<a name="l21"><span class="ln">21   </span></a>        <span class="s1">ITALIC  </span><span class="s0">= </span><span class="s1">loaded.deriveFont(Font.ITALIC</span><span class="s2">, </span><span class="s4">12f</span><span class="s1">);</span>
+<a name="l22"><span class="ln">22   </span></a>    <span class="s1">}</span>
+<a name="l23"><span class="ln">23   </span></a>
+<a name="l24"><span class="ln">24   </span></a>    <span class="s0">public static </span><span class="s1">Font of(</span><span class="s0">int </span><span class="s1">style</span><span class="s2">, </span><span class="s0">float </span><span class="s1">size) {</span>
+<a name="l25"><span class="ln">25   </span></a>        <span class="s0">return </span><span class="s1">REGULAR.deriveFont(style</span><span class="s2">, </span><span class="s1">size);</span>
+<a name="l26"><span class="ln">26   </span></a>    <span class="s1">}</span>
+<a name="l27"><span class="ln">27   </span></a><span class="s1">}</span></pre>
+</body>
+</html>

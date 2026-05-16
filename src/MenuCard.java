@@ -10,22 +10,22 @@ public class MenuCard extends JPanel {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1, true));
 
-        JLabel imageLabel = new JLabel();
-        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        JLabel lblImage = new JLabel();
+        lblImage.setHorizontalAlignment(JLabel.CENTER);
         ImageIcon icon = new ImageIcon(item.getImagePath());
-        Image img = icon.getImage().getScaledInstance(140, 100, Image.SCALE_SMOOTH);
-        imageLabel.setIcon(new ImageIcon(img));
-        add(imageLabel, BorderLayout.CENTER);
+        Image pic = icon.getImage().getScaledInstance(140, 100, Image.SCALE_SMOOTH);
+        lblImage.setIcon(new ImageIcon(pic));
+        add(lblImage, BorderLayout.CENTER);
 
-        JPanel textPanel = new JPanel(new GridLayout(2, 1));
-        textPanel.setBackground(Color.WHITE);
+        JPanel pnlName = new JPanel(new GridLayout(2, 1));
+        pnlName.setBackground(Color.WHITE);
         JLabel nameLabel = new JLabel(item.getName());
         nameLabel.setFont(new Font("Arial", Font.BOLD, 12));
         JLabel priceLabel = new JLabel(item.getPrice());
         priceLabel.setForeground(Color.GRAY);
-        textPanel.add(nameLabel);
-        textPanel.add(priceLabel);
-        add(textPanel, BorderLayout.SOUTH);
+        pnlName.add(nameLabel);
+        pnlName.add(priceLabel);
+        add(pnlName, BorderLayout.SOUTH);
 
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

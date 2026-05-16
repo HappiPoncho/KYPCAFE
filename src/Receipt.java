@@ -17,6 +17,7 @@ public class Receipt extends JDialog {
     private final String dateTime;
     private final String orderType;
     private final JFrame parent;
+    private final String dtime;
 
     public Receipt(JFrame parent, List<Orders> items, int total, String orderType) {
         super(parent, "Receipt", true);
@@ -25,6 +26,7 @@ public class Receipt extends JDialog {
         this.total = total;
         this.orderType = orderType;
         this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy  hh:mm a"));
+        this.dtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM" +"dd" + "yy" + "HH" + "mm" + "ss"));
 
         setSize(380, 520);
         setLocationRelativeTo(parent);
@@ -38,113 +40,113 @@ public class Receipt extends JDialog {
     }
 
     private JPanel ReceiptPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(new EmptyBorder(20, 24, 12, 24));
+        JPanel pnlReceipt = new JPanel();
+        pnlReceipt.setLayout(new BoxLayout(pnlReceipt, BoxLayout.Y_AXIS));
+        pnlReceipt.setBackground(Color.WHITE);
+        pnlReceipt.setBorder(new EmptyBorder(20, 24, 12, 24));
 
-        JLabel shop = new JLabel("KiPeYe Coffee");
-        shop.setFont(new Font("Arial", Font.BOLD, 20));
-        shop.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel lblShop = new JLabel("KiPeYe Coffee");
+        lblShop.setFont(new Font("Arial", Font.BOLD, 20));
+        lblShop.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitle = new JLabel("Official Receipt");
-        subtitle.setFont(new Font("Arial", Font.PLAIN, 12));
-        subtitle.setForeground(Color.GRAY);
-        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel lblSub = new JLabel("Official Receipt");
+        lblSub.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblSub.setForeground(Color.GRAY);
+        lblSub.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel date = new JLabel(dateTime);
-        date.setFont(new Font("Arial", Font.PLAIN, 11));
-        date.setForeground(Color.GRAY);
-        date.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel lblDate = new JLabel(dateTime);
+        lblDate.setFont(new Font("Arial", Font.PLAIN, 11));
+        lblDate.setForeground(Color.GRAY);
+        lblDate.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel typeLabel = new JLabel(orderType.toUpperCase());
-        typeLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        typeLabel.setForeground(new Color(90, 60, 30));
-        typeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel lblType = new JLabel(orderType.toUpperCase());
+        lblType.setFont(new Font("Arial", Font.BOLD, 12));
+        lblType.setForeground(new Color(90, 60, 30));
+        lblType.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(shop);
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(subtitle);
-        panel.add(Box.createVerticalStrut(2));
-        panel.add(date);
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(typeLabel);
-        panel.add(Box.createVerticalStrut(12));
-        panel.add(makeDivider());
-        panel.add(Box.createVerticalStrut(10));
+        pnlReceipt.add(lblShop);
+        pnlReceipt.add(Box.createVerticalStrut(4));
+        pnlReceipt.add(lblSub);
+        pnlReceipt.add(Box.createVerticalStrut(2));
+        pnlReceipt.add(lblDate);
+        pnlReceipt.add(Box.createVerticalStrut(4));
+        pnlReceipt.add(lblType);
+        pnlReceipt.add(Box.createVerticalStrut(12));
+        pnlReceipt.add(Divider());
+        pnlReceipt.add(Box.createVerticalStrut(10));
 
-        panel.add(makeRow("Item", "Qty", "Price", true));
-        panel.add(Box.createVerticalStrut(6));
+        pnlReceipt.add(RowPanel("Item", "Qty", "Price", true));
+        pnlReceipt.add(Box.createVerticalStrut(6));
 
         for (Orders item : items) {
-            panel.add(makeRow(
+            pnlReceipt.add(RowPanel(
                     item.getMenu().getName(),
                     "x" + item.getQuantity(),
                     "₱" + item.getTotalPrice(),
                     false
             ));
-            panel.add(Box.createVerticalStrut(4));
+            pnlReceipt.add(Box.createVerticalStrut(4));
         }
 
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(makeDivider());
-        panel.add(Box.createVerticalStrut(10));
+        pnlReceipt.add(Box.createVerticalStrut(10));
+        pnlReceipt.add(Divider());
+        pnlReceipt.add(Box.createVerticalStrut(10));
 
-        JPanel totalRow = new JPanel(new BorderLayout());
-        totalRow.setBackground(Color.WHITE);
-        totalRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
+        JPanel lblTotalRow = new JPanel(new BorderLayout());
+        lblTotalRow.setBackground(Color.WHITE);
+        lblTotalRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
 
-        JLabel totalLabel = new JLabel("TOTAL");
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        JLabel lblTotal = new JLabel("TOTAL");
+        lblTotal.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JLabel totalAmount = new JLabel("₱" + total);
-        totalAmount.setFont(new Font("Arial", Font.BOLD, 14));
+        JLabel lblTotalAmount = new JLabel("₱" + total);
+        lblTotalAmount.setFont(new Font("Arial", Font.BOLD, 14));
 
-        totalRow.add(totalLabel, BorderLayout.WEST);
-        totalRow.add(totalAmount, BorderLayout.EAST);
-        panel.add(totalRow);
+        lblTotalRow.add(lblTotal, BorderLayout.WEST);
+        lblTotalRow.add(lblTotalAmount, BorderLayout.EAST);
+        pnlReceipt.add(lblTotalRow);
 
-        panel.add(Box.createVerticalStrut(16));
+        pnlReceipt.add(Box.createVerticalStrut(16));
 
-        JLabel thanks = new JLabel("Thank you for your order!");
-        thanks.setFont(new Font("Arial", Font.ITALIC, 12));
-        thanks.setForeground(Color.GRAY);
-        thanks.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(thanks);
+        JLabel lblThanks = new JLabel("Thank you for your order!");
+        lblThanks.setFont(new Font("Arial", Font.ITALIC, 12));
+        lblThanks.setForeground(Color.GRAY);
+        lblThanks.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pnlReceipt.add(lblThanks);
 
-        return panel;
+        return pnlReceipt;
     }
 
-    private JPanel makeRow(String name, String qty, String price, boolean bold) {
-        JPanel row = new JPanel(new BorderLayout());
-        row.setBackground(Color.WHITE);
-        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+    private JPanel RowPanel(String name, String qty, String price, boolean bold) {
+        JPanel pnlRow = new JPanel(new BorderLayout());
+        pnlRow.setBackground(Color.WHITE);
+        pnlRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
         int style = bold ? Font.BOLD : Font.PLAIN;
 
-        JLabel nameLabel  = new JLabel(name);
-        JLabel qtyLabel   = new JLabel(qty, JLabel.CENTER);
-        JLabel priceLabel = new JLabel(price, JLabel.RIGHT);
+        JLabel lblName  = new JLabel(name);
+        JLabel lblqty = new JLabel(qty, JLabel.CENTER);
+        JLabel lblPrice = new JLabel(price, JLabel.RIGHT);
 
-        nameLabel.setFont(new Font("Arial", style, 12));
-        qtyLabel.setFont(new Font("Arial", style, 12));
-        priceLabel.setFont(new Font("Arial", style, 12));
+        lblName.setFont(new Font("Arial", style, 12));
+        lblqty.setFont(new Font("Arial", style, 12));
+        lblPrice.setFont(new Font("Arial", style, 12));
 
-        qtyLabel.setPreferredSize(new Dimension(40, 20));
-        priceLabel.setPreferredSize(new Dimension(70, 20));
+        lblqty.setPreferredSize(new Dimension(40, 20));
+        lblPrice.setPreferredSize(new Dimension(70, 20));
 
         JPanel right = new JPanel(new BorderLayout());
         right.setBackground(Color.WHITE);
-        right.add(qtyLabel, BorderLayout.WEST);
-        right.add(priceLabel, BorderLayout.EAST);
+        right.add(lblqty, BorderLayout.WEST);
+        right.add(lblPrice, BorderLayout.EAST);
         right.setPreferredSize(new Dimension(110, 20));
 
-        row.add(nameLabel, BorderLayout.CENTER);
-        row.add(right, BorderLayout.EAST);
-        return row;
+        pnlRow.add(lblName, BorderLayout.CENTER);
+        pnlRow.add(right, BorderLayout.EAST);
+        return pnlRow;
     }
 
-    private JSeparator makeDivider() {
+    private JSeparator Divider() {
         JSeparator sep = new JSeparator();
         sep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
         sep.setForeground(new Color(200, 200, 200));
@@ -152,9 +154,9 @@ public class Receipt extends JDialog {
     }
 
     private JPanel buildButtonPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2, 10, 0));
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(new EmptyBorder(0, 24, 20, 24));
+        JPanel pnlRece = new JPanel(new GridLayout(1, 2, 10, 0));
+        pnlRece.setBackground(Color.WHITE);
+        pnlRece.setBorder(new EmptyBorder(0, 24, 20, 24));
 
         JButton closeBtn = new JButton("Close");
         closeBtn.setFocusPainted(false);
@@ -164,22 +166,22 @@ public class Receipt extends JDialog {
             SwingUtilities.invokeLater(() -> new WelcomePanel());
         });
 
-        JButton downloadBtn = new JButton("Download PDF");
-        downloadBtn.setBackground(new Color(90, 60, 30));
-        downloadBtn.setForeground(Color.WHITE);
-        downloadBtn.setFocusPainted(false);
-        downloadBtn.setBorderPainted(false);
-        downloadBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        downloadBtn.addActionListener(e -> savePDF());
+        JButton btnDownload = new JButton("Download PDF");
+        btnDownload.setBackground(new Color(90, 60, 30));
+        btnDownload.setForeground(Color.WHITE);
+        btnDownload.setFocusPainted(false);
+        btnDownload.setBorderPainted(false);
+        btnDownload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnDownload.addActionListener(e -> savePDF());
 
-        panel.add(closeBtn);
-        panel.add(downloadBtn);
-        return panel;
+        pnlRece.add(closeBtn);
+        pnlRece.add(btnDownload);
+        return pnlRece;
     }
 
     private void savePDF() {
         JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(new File("KiPeYe_Receipt.pdf"));
+        chooser.setSelectedFile(new File(dtime +"KPYReciept.pdf"));
         int result = chooser.showSaveDialog(this);
         if (result != JFileChooser.APPROVE_OPTION) return;
 
@@ -229,35 +231,35 @@ public class Receipt extends JDialog {
             }
 
             for (Orders item : items) {
-                PdfPCell c1 = new PdfPCell(new Phrase(item.getMenu().getName(), bodyFont));
-                PdfPCell c2 = new PdfPCell(new Phrase("x" + item.getQuantity(), bodyFont));
-                PdfPCell c3 = new PdfPCell(new Phrase("₱" + item.getTotalPrice(), bodyFont));
-                c2.setHorizontalAlignment(Element.ALIGN_CENTER);
-                c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                for (PdfPCell c : new PdfPCell[]{c1, c2, c3}) {
+                PdfPCell cell1 = new PdfPCell(new Phrase(item.getMenu().getName(), bodyFont));
+                PdfPCell cell2 = new PdfPCell(new Phrase("x" + item.getQuantity(), bodyFont));
+                PdfPCell cell3 = new PdfPCell(new Phrase("₱" + item.getTotalPrice(), bodyFont));
+                cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                for (PdfPCell c : new PdfPCell[]{cell1, cell2, cell3}) {
                     c.setBorder(Rectangle.NO_BORDER);
                     c.setPadding(3);
                 }
-                table.addCell(c1);
-                table.addCell(c2);
-                table.addCell(c3);
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
             }
 
             doc.add(table);
 
-            Paragraph divider = new Paragraph("________________________________________________", subFont);
-            divider.setAlignment(Element.ALIGN_CENTER);
-            doc.add(divider);
+            Paragraph lineDivider = new Paragraph("________________________________________________", subFont);
+            lineDivider.setAlignment(Element.ALIGN_CENTER);
+            doc.add(lineDivider);
 
-            Paragraph totalPara = new Paragraph("TOTAL: ₱" + total, totalFont);
-            totalPara.setAlignment(Element.ALIGN_RIGHT);
-            totalPara.setSpacingBefore(8);
-            doc.add(totalPara);
+            Paragraph txtTotal = new Paragraph("TOTAL: ₱" + total, totalFont);
+            txtTotal.setAlignment(Element.ALIGN_RIGHT);
+            txtTotal.setSpacingBefore(8);
+            doc.add(txtTotal);
 
-            Paragraph thanks = new Paragraph("Thank you for your order!", subFont);
-            thanks.setAlignment(Element.ALIGN_CENTER);
-            thanks.setSpacingBefore(16);
-            doc.add(thanks);
+            Paragraph txtThanks = new Paragraph("Thank you for your order!", subFont);
+            txtThanks.setAlignment(Element.ALIGN_CENTER);
+            txtThanks.setSpacingBefore(16);
+            doc.add(txtThanks);
 
             doc.close();
             JOptionPane.showMessageDialog(this, "Receipt saved to:\n" + file.getAbsolutePath());

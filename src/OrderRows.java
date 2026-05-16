@@ -11,23 +11,23 @@ public class OrderRows extends JPanel {
         ));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
-        JLabel nameLabel = new JLabel(item.getMenu().getName() + " x" + item.getQuantity());
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        JLabel lblName = new JLabel(item.getMenu().getName() + " x" + item.getQuantity());
+        lblName.setFont(new Font("Arial", Font.PLAIN, 12));
 
-        JLabel priceLabel = new JLabel(item.getFormattedTotal());
-        priceLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        priceLabel.setForeground(new Color(80, 80, 80));
+        JLabel lblPrice = new JLabel(item.getFormattedTotal());
+        lblPrice.setFont(new Font("Arial", Font.BOLD, 12));
+        lblPrice.setForeground(new Color(80, 80, 80));
 
-        JButton removeBtn = new JButton("X");
-        removeBtn.setFont(new Font("Arial", Font.BOLD, 10));
-        removeBtn.setForeground(Color.RED);
-        removeBtn.setBorderPainted(false);
-        removeBtn.setContentAreaFilled(false);
-        removeBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        removeBtn.addActionListener(e -> orderManager.removeItem(item));
+        JButton btnRemove = new JButton("X");
+        btnRemove.setFont(new Font("Arial", Font.BOLD, 10));
+        btnRemove.setForeground(Color.RED);
+        btnRemove.setBorderPainted(false);
+        btnRemove.setContentAreaFilled(false);
+        btnRemove.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnRemove.addActionListener(e -> orderManager.removeItem(item));
 
-        add(nameLabel, BorderLayout.CENTER);
-        add(priceLabel, BorderLayout.WEST);
-        add(removeBtn, BorderLayout.EAST);
+        add(lblName, BorderLayout.CENTER);
+        add(lblPrice, BorderLayout.WEST);
+        add(btnRemove, BorderLayout.EAST);
     }
 }

@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>OrderPanel.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #f92672;}
+.s1 { color: #f8605f;}
+.s2 { color: #ae81ff;}
+.s3 { color: #ff0006;}
+.s4 { color: #75715e;}
+.s5 { color: #e6db74;}
+.ln { color: #642c3c; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#060a13">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+OrderPanel.java</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">import </span><span class="s1">javax.swing.</span><span class="s0">*</span><span class="s1">;</span>
+<a name="l2"><span class="ln">2    </span></a><span class="s0">import </span><span class="s1">java.awt.</span><span class="s0">*</span><span class="s1">;</span>
+<a name="l3"><span class="ln">3    </span></a><span class="s0">import </span><span class="s1">java.util.ArrayList;</span>
+<a name="l4"><span class="ln">4    </span></a><span class="s0">import </span><span class="s1">java.util.List;</span>
+<a name="l5"><span class="ln">5    </span></a>
+<a name="l6"><span class="ln">6    </span></a><span class="s0">public class </span><span class="s1">OrderPanel </span><span class="s0">extends </span><span class="s1">JPanel {</span>
+<a name="l7"><span class="ln">7    </span></a>    <span class="s0">private </span><span class="s1">OrderManager orderManager;</span>
+<a name="l8"><span class="ln">8    </span></a>    <span class="s0">private </span><span class="s1">JPanel itemsPanel;</span>
+<a name="l9"><span class="ln">9    </span></a>    <span class="s0">private </span><span class="s1">JLabel totalLabel;</span>
+<a name="l10"><span class="ln">10   </span></a>    <span class="s0">private </span><span class="s1">String orderType;</span>
+<a name="l11"><span class="ln">11   </span></a>
+<a name="l12"><span class="ln">12   </span></a>    <span class="s0">private static final </span><span class="s1">Color CREAM </span><span class="s0">= new </span><span class="s1">Color(</span><span class="s2">255</span><span class="s3">, </span><span class="s2">253</span><span class="s3">, </span><span class="s2">208</span><span class="s1">);</span>
+<a name="l13"><span class="ln">13   </span></a>
+<a name="l14"><span class="ln">14   </span></a>    <span class="s0">public </span><span class="s1">OrderPanel(OrderManager orderManager</span><span class="s3">,</span><span class="s1">String orderType) {</span>
+<a name="l15"><span class="ln">15   </span></a>        <span class="s0">this</span><span class="s1">.orderManager </span><span class="s0">= </span><span class="s1">orderManager;</span>
+<a name="l16"><span class="ln">16   </span></a>        <span class="s0">this</span><span class="s1">.orderType </span><span class="s0">= </span><span class="s1">orderType;</span>
+<a name="l17"><span class="ln">17   </span></a>        <span class="s1">setLayout(</span><span class="s0">new </span><span class="s1">BorderLayout(</span><span class="s2">0</span><span class="s3">, </span><span class="s2">10</span><span class="s1">));</span>
+<a name="l18"><span class="ln">18   </span></a>        <span class="s1">setBackground(CREAM);</span>
+<a name="l19"><span class="ln">19   </span></a>        <span class="s1">setBorder(BorderFactory.createEmptyBorder(</span><span class="s2">10</span><span class="s3">, </span><span class="s2">10</span><span class="s3">, </span><span class="s2">10</span><span class="s3">, </span><span class="s2">10</span><span class="s1">));</span>
+<a name="l20"><span class="ln">20   </span></a>
+<a name="l21"><span class="ln">21   </span></a>        <span class="s4">// TITLE</span>
+<a name="l22"><span class="ln">22   </span></a>        <span class="s1">JLabel title </span><span class="s0">= new </span><span class="s1">JLabel(</span><span class="s5">&quot;Your Order&quot;</span><span class="s1">);</span>
+<a name="l23"><span class="ln">23   </span></a>        <span class="s1">title.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s5">&quot;Arial&quot;</span><span class="s3">, </span><span class="s1">Font.BOLD</span><span class="s3">, </span><span class="s2">16</span><span class="s1">));</span>
+<a name="l24"><span class="ln">24   </span></a>        <span class="s1">title.setBorder(BorderFactory.createEmptyBorder(</span><span class="s2">0</span><span class="s3">, </span><span class="s2">0</span><span class="s3">, </span><span class="s2">8</span><span class="s3">, </span><span class="s2">0</span><span class="s1">));</span>
+<a name="l25"><span class="ln">25   </span></a>        <span class="s1">add(title</span><span class="s3">, </span><span class="s1">BorderLayout.NORTH);</span>
+<a name="l26"><span class="ln">26   </span></a>
+<a name="l27"><span class="ln">27   </span></a>        <span class="s4">// Items list</span>
+<a name="l28"><span class="ln">28   </span></a>        <span class="s1">itemsPanel </span><span class="s0">= new </span><span class="s1">JPanel();</span>
+<a name="l29"><span class="ln">29   </span></a>        <span class="s1">itemsPanel.setLayout(</span><span class="s0">new </span><span class="s1">BoxLayout(itemsPanel</span><span class="s3">, </span><span class="s1">BoxLayout.Y_AXIS));</span>
+<a name="l30"><span class="ln">30   </span></a>        <span class="s1">itemsPanel.setBackground(CREAM);</span>
+<a name="l31"><span class="ln">31   </span></a>
+<a name="l32"><span class="ln">32   </span></a>        <span class="s1">JScrollPane scroll </span><span class="s0">= new </span><span class="s1">JScrollPane(itemsPanel);</span>
+<a name="l33"><span class="ln">33   </span></a>        <span class="s1">scroll.setBorder(</span><span class="s0">null</span><span class="s1">);</span>
+<a name="l34"><span class="ln">34   </span></a>        <span class="s1">scroll.setBackground(CREAM);</span>
+<a name="l35"><span class="ln">35   </span></a>        <span class="s1">add(scroll</span><span class="s3">, </span><span class="s1">BorderLayout.CENTER);</span>
+<a name="l36"><span class="ln">36   </span></a>
+<a name="l37"><span class="ln">37   </span></a>        <span class="s1">JPanel bottomPanel </span><span class="s0">= new </span><span class="s1">JPanel(</span><span class="s0">new </span><span class="s1">BorderLayout(</span><span class="s2">0</span><span class="s3">, </span><span class="s2">8</span><span class="s1">));</span>
+<a name="l38"><span class="ln">38   </span></a>        <span class="s1">bottomPanel.setBackground(CREAM);</span>
+<a name="l39"><span class="ln">39   </span></a>        <span class="s1">bottomPanel.setBorder(BorderFactory.createEmptyBorder(</span><span class="s2">8</span><span class="s3">, </span><span class="s2">0</span><span class="s3">, </span><span class="s2">0</span><span class="s3">, </span><span class="s2">0</span><span class="s1">));</span>
+<a name="l40"><span class="ln">40   </span></a>
+<a name="l41"><span class="ln">41   </span></a>        <span class="s1">totalLabel </span><span class="s0">= new </span><span class="s1">JLabel(</span><span class="s5">&quot;Total: ₱0&quot;</span><span class="s1">);</span>
+<a name="l42"><span class="ln">42   </span></a>        <span class="s1">totalLabel.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s5">&quot;Arial&quot;</span><span class="s3">, </span><span class="s1">Font.BOLD</span><span class="s3">, </span><span class="s2">14</span><span class="s1">));</span>
+<a name="l43"><span class="ln">43   </span></a>
+<a name="l44"><span class="ln">44   </span></a>        <span class="s1">JButton checkoutBtn </span><span class="s0">= new </span><span class="s1">JButton(</span><span class="s5">&quot;Checkout&quot;</span><span class="s1">);</span>
+<a name="l45"><span class="ln">45   </span></a>        <span class="s1">checkoutBtn.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s5">&quot;Arial&quot;</span><span class="s3">, </span><span class="s1">Font.BOLD</span><span class="s3">, </span><span class="s2">13</span><span class="s1">));</span>
+<a name="l46"><span class="ln">46   </span></a>        <span class="s1">checkoutBtn.setBackground(</span><span class="s0">new </span><span class="s1">Color(</span><span class="s2">90</span><span class="s3">, </span><span class="s2">60</span><span class="s3">, </span><span class="s2">30</span><span class="s1">));</span>
+<a name="l47"><span class="ln">47   </span></a>        <span class="s1">checkoutBtn.setForeground(Color.WHITE);</span>
+<a name="l48"><span class="ln">48   </span></a>        <span class="s1">checkoutBtn.setFocusPainted(</span><span class="s0">false</span><span class="s1">);</span>
+<a name="l49"><span class="ln">49   </span></a>        <span class="s1">checkoutBtn.setBorderPainted(</span><span class="s0">false</span><span class="s1">);</span>
+<a name="l50"><span class="ln">50   </span></a>        <span class="s1">checkoutBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));</span>
+<a name="l51"><span class="ln">51   </span></a>        <span class="s1">checkoutBtn.setPreferredSize(</span><span class="s0">new </span><span class="s1">Dimension(</span><span class="s2">0</span><span class="s3">, </span><span class="s2">38</span><span class="s1">));</span>
+<a name="l52"><span class="ln">52   </span></a>        <span class="s1">checkoutBtn.addActionListener(e -&gt; {</span>
+<a name="l53"><span class="ln">53   </span></a>            <span class="s0">if </span><span class="s1">(orderManager.getOrderItems().isEmpty()) {</span>
+<a name="l54"><span class="ln">54   </span></a>                <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">this</span><span class="s3">, </span><span class="s5">&quot;No items in order!&quot;</span><span class="s3">, </span><span class="s5">&quot;Checkout&quot;</span><span class="s3">, </span><span class="s1">JOptionPane.WARNING_MESSAGE);</span>
+<a name="l55"><span class="ln">55   </span></a>                <span class="s0">return</span><span class="s1">;</span>
+<a name="l56"><span class="ln">56   </span></a>            <span class="s1">}</span>
+<a name="l57"><span class="ln">57   </span></a>            <span class="s0">int </span><span class="s1">confirm </span><span class="s0">= </span><span class="s1">JOptionPane.showConfirmDialog(</span><span class="s0">this</span><span class="s3">,</span>
+<a name="l58"><span class="ln">58   </span></a>                    <span class="s5">&quot;Total: ₱&quot; </span><span class="s0">+ </span><span class="s1">orderManager.getTotal() </span><span class="s0">+ </span><span class="s5">&quot;</span><span class="s2">\n</span><span class="s5">Proceed to checkout?&quot;</span><span class="s3">,</span>
+<a name="l59"><span class="ln">59   </span></a>                    <span class="s5">&quot;Checkout&quot;</span><span class="s3">, </span><span class="s1">JOptionPane.YES_NO_OPTION);</span>
+<a name="l60"><span class="ln">60   </span></a>            <span class="s4">// replace the YES_OPTION block with this</span>
+<a name="l61"><span class="ln">61   </span></a>            <span class="s0">if </span><span class="s1">(confirm </span><span class="s0">== </span><span class="s1">JOptionPane.YES_OPTION) {</span>
+<a name="l62"><span class="ln">62   </span></a>                <span class="s1">List</span><span class="s0">&lt;</span><span class="s1">Orders</span><span class="s0">&gt; </span><span class="s1">snapshot </span><span class="s0">= new </span><span class="s1">ArrayList</span><span class="s0">&lt;&gt;</span><span class="s1">(orderManager.getOrderItems());</span>
+<a name="l63"><span class="ln">63   </span></a>                <span class="s0">int </span><span class="s1">currentTotal </span><span class="s0">= </span><span class="s1">orderManager.getTotal();</span>
+<a name="l64"><span class="ln">64   </span></a>
+<a name="l65"><span class="ln">65   </span></a>                <span class="s1">orderManager.getOrderItems().clear();</span>
+<a name="l66"><span class="ln">66   </span></a>                <span class="s1">orderManager.notifyListenCheckout();</span>
+<a name="l67"><span class="ln">67   </span></a>
+<a name="l68"><span class="ln">68   </span></a>                <span class="s0">new </span><span class="s1">Receipt((JFrame) SwingUtilities.getWindowAncestor(</span><span class="s0">this</span><span class="s1">)</span><span class="s3">, </span><span class="s1">snapshot</span><span class="s3">, </span><span class="s1">currentTotal</span><span class="s3">, </span><span class="s1">orderType);</span>
+<a name="l69"><span class="ln">69   </span></a>            <span class="s1">}</span>
+<a name="l70"><span class="ln">70   </span></a>        <span class="s1">});</span>
+<a name="l71"><span class="ln">71   </span></a>
+<a name="l72"><span class="ln">72   </span></a>        <span class="s1">bottomPanel.add(totalLabel</span><span class="s3">, </span><span class="s1">BorderLayout.NORTH);</span>
+<a name="l73"><span class="ln">73   </span></a>        <span class="s1">bottomPanel.add(checkoutBtn</span><span class="s3">, </span><span class="s1">BorderLayout.SOUTH);</span>
+<a name="l74"><span class="ln">74   </span></a>        <span class="s1">add(bottomPanel</span><span class="s3">, </span><span class="s1">BorderLayout.SOUTH);</span>
+<a name="l75"><span class="ln">75   </span></a>
+<a name="l76"><span class="ln">76   </span></a>        <span class="s1">orderManager.addChangeListener(</span><span class="s0">this</span><span class="s1">::refresh);</span>
+<a name="l77"><span class="ln">77   </span></a>    <span class="s1">}</span>
+<a name="l78"><span class="ln">78   </span></a>
+<a name="l79"><span class="ln">79   </span></a>    <span class="s0">private void </span><span class="s1">refresh() {</span>
+<a name="l80"><span class="ln">80   </span></a>        <span class="s1">itemsPanel.removeAll();</span>
+<a name="l81"><span class="ln">81   </span></a>
+<a name="l82"><span class="ln">82   </span></a>        <span class="s0">for </span><span class="s1">(Orders item </span><span class="s0">: </span><span class="s1">orderManager.getOrderItems()) {</span>
+<a name="l83"><span class="ln">83   </span></a>            <span class="s1">itemsPanel.add(</span><span class="s0">new </span><span class="s1">OrderRows(item</span><span class="s3">, </span><span class="s1">orderManager));</span>
+<a name="l84"><span class="ln">84   </span></a>            <span class="s1">itemsPanel.add(Box.createVerticalStrut(</span><span class="s2">5</span><span class="s1">));</span>
+<a name="l85"><span class="ln">85   </span></a>        <span class="s1">}</span>
+<a name="l86"><span class="ln">86   </span></a>
+<a name="l87"><span class="ln">87   </span></a>        <span class="s1">totalLabel.setText(</span><span class="s5">&quot;Total: ₱&quot; </span><span class="s0">+ </span><span class="s1">orderManager.getTotal());</span>
+<a name="l88"><span class="ln">88   </span></a>        <span class="s1">itemsPanel.revalidate();</span>
+<a name="l89"><span class="ln">89   </span></a>        <span class="s1">itemsPanel.repaint();</span>
+<a name="l90"><span class="ln">90   </span></a>    <span class="s1">}</span>
+<a name="l91"><span class="ln">91   </span></a><span class="s1">}</span></pre>
+</body>
+</html>

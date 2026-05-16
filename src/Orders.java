@@ -1,19 +1,19 @@
 public class Orders {
     private Menu menu;
-    private int quantity;
+    private int qt;
 
     public Orders(Menu menu) {
         this.menu = menu;
-        this.quantity = 1;
+        this.qt = 1;
     }
 
     public Menu getMenu() { return menu; }
-    public int getQuantity() { return quantity; }
-    public void increment() { quantity++; }
+    public int getQuantity() { return qt; }
+    public void increment() { qt++; }
 
     public int getTotalPrice() {
         int price = Integer.parseInt(menu.getPrice().replace("₱", "").trim());
-        return price * quantity;
+        return price * qt;
     }
 
     public String getFormattedTotal() { return "₱" + getTotalPrice(); }
